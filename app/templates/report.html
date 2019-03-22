@@ -1,0 +1,65 @@
+{% extends  'header.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+
+        <div class="row box" style="margin-top:20px;">
+            <div class="col-md-12">
+                <h2>IEOR 171 | Technology Firm Leadership</h2>
+            </div>
+            <div class="col-md-12">
+                <h4 class="purple">Instructor Report</h4>
+            </div>
+        </div>
+        <br clear="all">
+        <div class="box" style="margin: 0px -15px 0px -15px">
+            <div class="row">
+                <div class="col-xs-4 col-md-4" style="padding-left:0px;">
+                    <input type="text" class="form-control searchbox" placeholder="Search for..." style="margin:0px;"/>
+                </div>
+                <div class="col-xs-4 col-md-4"></div>
+                <div class="col-xs-4 col-md-4">
+                    <button onclick="location.href='{% url "export" %}'" class="btn btn-outline-primary btn-purple" style="float:right;"> Export as CSV</button>
+                </div>
+            </div>
+            <br clear="all"><br clear="all"><br clear="all">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover" style="width:100%;">
+                            <thead>
+                            <tr>
+                                <th style="width:300px;">Name</th>
+                                <th class="text-center">Team(Current)</th>
+                                <th class="text-center">Overall</th>
+                                <th class="text-center">Project 1</th>
+                                <th class="text-center">Project 2</th>
+                                <th class="text-center">Project 3</th>
+                                <th class="text-center">Project 4</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for student, scores in score_dict.items %}
+                                <tr>
+                                    <td><a href="/profile?student={{student.id}}">{{student.name}}</a></td>
+                                    <td class="text-center">1</td>
+                                    {% for project, score in scores.items %}
+                                        <td class="text-center">{{ score }}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div><!--end of .table-responsive-->
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+
+    </script>
+    </body>
+    </html>
+{% endblock %}

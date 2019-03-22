@@ -1,0 +1,163 @@
+{% extends  'header.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row box">
+        <div class="col-md-2">
+             {% if student.image_url %}
+                <img src="{{student.image_url}}"  style="height:100px;"/>
+                {% else %}
+                <img src="{% static  'user.png' %}"  style="height:100px;"/>
+                {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h2>Evaluate | <span class="purple">{{student.name}}</span></h2>
+            <small>Project {{ project }} , Team {{ team }}</small><br>
+        </div>
+
+
+    </div>
+    <div style="margin-top:20px;">
+        <div class="alert alert-warning" role="alert" style="display:none;">
+            Please answer all the questions.
+        </div>
+    </div>
+    <form method="post" id="evaluation-form" action="/evaluation">
+        <input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}' />
+        <input type="hidden" name="student" value="{{student.id}}">
+        <input type="hidden" name="project" value="{{project}}">
+    {% for category in evaluation_questions %}
+    <div class="row categories box" id="cat_{{forloop.counter}}">
+        <div class="col-md-12">
+
+            <div class="row" style="margin-left:0px;height:100px;">
+                <h2 class="teal" style="font-weight:bold;margin-bottom:20px;">{{category.name}}</h2>
+            </div>
+
+            {%for question in category.questions %}
+            <div class="row" style="min-height:50px;margin-bottom:10px;">
+                <div class="col-md-6 col-xs-12">
+                    <p>{{question.text}}</p>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <div class="row">
+                        <div class="form-check col-md-4 col-xs-12">
+                            <label>
+                                <input class="form-check-input" type="radio" name="qid_{{question.id}}"  value="5">
+                                Strongly Agree
+                            </label>
+                        </div>
+                        <div class="form-check col-md-2 col-xs-12">
+                            <label>
+                                <input class="form-check-input" type="radio" name="qid_{{question.id}}"  value="4">
+                                Agree
+                            </label>
+                        </div>
+                        <div class="form-check col-md-2 col-xs-12">
+                            <label>
+                                <input class="form-check-input" type="radio" name="qid_{{question.id}}"  value="3">
+                                Disgree
+                            </label>
+                        </div>
+                        <div class="form-check col-md-4 col-xs-12">
+                            <label>
+                                <input class="form-check-input" type="radio" name="qid_{{question.id}}"  value="1">
+                                Strongly Disgree
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <br clear="all">
+            <div class="row">
+                <div class="col-12">
+                    <textarea class="form-control" name="comment_{{category.id}}" placeholder="Add your comments here"></textarea>
+               </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </form>
+    <br clear="all">
+    <div>
+        <div class="alert alert-warning" role="alert" style="display:none;">
+            Please answer all the questions.
+        </div>
+    </div>
+    <br clear="all">
+    <div class="row justify-content-center">
+         <div class="col-6 prev">
+            <button class="btn btn-default" style="width:100%;"> Previous</button>
+        </div>
+        <div class="col-6 next">
+            <button class="btn btn-primary" style="width:100%;"> Next</button>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var counter = 1;
+
+    function submit_form() {
+        var check = true;
+        $("input:radio").each(function(){
+            var name = $(this).attr("name");
+            if($("input:radio[name="+name+"]:checked").length == 0){
+                check = false;
+            }
+        });
+        if (check) {
+            $('.alert').css('display', 'none')
+            var form = $("#evaluation-form")
+            var url = form.attr('action');
+
+            $.ajax({
+               type: "POST",
+               url: url,
+               data: form.serialize(),
+               success: function(data) {
+                   if (data) {
+                        console.log("redirect")
+                        window.location.href='/team?project={{project}}'
+                   }
+               }
+            });
+        } else {
+            $('.alert').css('display', 'block')
+        }
+    }
+
+    $( document ).ready(function() {
+        $('#cat_1').css('display', 'block')
+        $('.prev button').css('display', 'none')
+
+        $('.next').click(function() {
+            counter = counter + 1
+            if (counter > 1) {
+                $('.prev button').css('display', 'block')
+            }
+            if (counter > 4) {
+                $('.next button').html('Done')
+               submit_form()
+            } else {
+                $('.categories').css('display', 'none')
+                $('#cat_' + counter).css('display', 'block')
+                if (counter == 4)  $('.next button').html('Done')
+            }
+        });
+        $('.prev').click(function() {
+            counter = counter - 1
+            if (counter == 1) {
+                $('.prev button').css('display', 'none')
+            }
+            $('.categories').css('display', 'none')
+            $('#cat_' + counter).css('display', 'block')
+        });
+
+    })
+
+</script>
+{% endblock %}

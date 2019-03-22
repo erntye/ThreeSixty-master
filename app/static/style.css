@@ -1,0 +1,411 @@
+/**
+ * Oscuro: #283035
+ * Azul: #03658c
+ * Detalle: #c7cacb
+ * Fondo: #dee1e3
+ ----------------------------------*/
+ * {
+ 	margin: 0;
+ 	padding: 0;
+ 	-webkit-box-sizing: border-box;
+ 	-moz-box-sizing: border-box;
+ 	box-sizing: border-box;
+ }
+
+ a {
+    color:#333;
+ 	text-decoration: none;
+ }
+ a:hover {
+    color: purple;
+    text-decoration: none;
+ }
+
+ul {
+	list-style-type: none;
+}
+p {
+    display: block;
+}
+
+body {
+	/**font-family: 'Roboto', Arial, Helvetica, Sans-serif, Verdana;**/
+	font-family: 'Roboto', sans-serif !important;
+	background:#f2f2f2;
+}
+
+.comment-section {
+    /**background: #dee1e3; **/
+    padding:20px;
+}
+/** ====================
+ * Lista de Comentarios
+ =======================*/
+.comments-container {
+	margin: 60px auto 15px;
+	width: 768px;
+}
+
+.comments-container h1 {
+	font-size: 36px;
+	color: #283035;
+	font-weight: 400;
+}
+
+.comments-container h1 a {
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.comments-list {
+	margin-top: 30px;
+	position: relative;
+}
+
+
+.comments-list li {
+	margin-bottom: 15px;
+	display: block;
+	position: relative;
+}
+
+.comments-list li:after {
+	content: '';
+	display: block;
+	clear: both;
+	height: 0;
+	width: 0;
+}
+
+.reply-list {
+	padding-left: 88px;
+	clear: both;
+	margin-top: 15px;
+}
+/**
+ * Avatar
+ ---------------------------*/
+.comments-list .comment-avatar {
+	width: 65px;
+	height: 65px;
+	position: relative;
+	z-index: 99;
+	float: left;
+	border: 3px solid #FFF;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+	overflow: hidden;
+}
+
+.comments-list .comment-avatar img {
+	width: 100%;
+	height: 100%;
+}
+
+.reply-list .comment-avatar {
+	width: 50px;
+	height: 50px;
+}
+
+.comment-main-level:after {
+	content: '';
+	width: 0;
+	height: 0;
+	display: block;
+	clear: both;
+}
+/**
+ * Caja del Comentario
+ ---------------------------*/
+.comments-list .comment-box {
+	width: 100%;
+	float: right;
+	position: relative;
+	/**-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+	-moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+	box-shadow: 0 1px 1px rgba(0,0,0,0.15);**/
+}
+
+.reply-list .comment-box {
+	width: 610px;
+}
+.comment-box .comment-head {
+	background: #FCFCFC;
+	padding: 10px 0px;
+	overflow: hidden;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+}
+
+.comment-box .comment-head i {
+	float: right;
+	margin-left: 14px;
+	position: relative;
+	top: 2px;
+	color: #A6A6A6;
+	cursor: pointer;
+	-webkit-transition: color 0.3s ease;
+	-o-transition: color 0.3s ease;
+	transition: color 0.3s ease;
+}
+
+.comment-box .comment-head i:hover {
+	color: #03658c;
+}
+
+.comment-box .comment-name {
+	color: #283035;
+	font-size: 14px;
+	font-weight: 700;
+	float: left;
+	margin-right: 10px;
+}
+
+.comment-box .comment-name a {
+	color: #283035;
+}
+
+.comment-box .comment-head span {
+	float: left;
+	font-size: 13px;
+	position: relative;
+	top: 1px;
+}
+
+.comment-box .comment-content {
+	background: #FFF;
+	padding: 12px;
+	font-size: 15px;
+	color: #595959;
+	-webkit-border-radius: 0 0 4px 4px;
+	-moz-border-radius: 0 0 4px 4px;
+	border-radius: 0 0 4px 4px;
+}
+
+
+
+/** =====================
+ * Responsive
+ ========================*/
+@media only screen and (max-width: 766px) {
+	.comments-container {
+		width: 480px;
+	}
+
+	.comments-list .comment-box {
+		width: 390px;
+	}
+
+	.reply-list .comment-box {
+		width: 320px;
+	}
+}
+
+.comment-span {
+    background: teal;
+    color: #FFF;
+    font-size: 12px;
+    padding: 5px 8px;
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+
+.c-bar-graph {
+  text-align: center;
+  color: gray;
+  font-size: .9rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+@media (min-width: 45em) {
+  .c-bar-graph {
+    font-size: 1.1rem;
+  }
+}
+.c-bar-graph__footer {
+  border-top: 1px solid lightgray;
+}
+.c-bar-graph__footer td {
+  line-height: 14px;
+  font-size: 12px;
+  vertical-align: top;
+  padding: .4rem 0;
+  font-weight: 700;
+}
+.c-bar-graph__cell {
+  height: 200px;
+  vertical-align: bottom;
+  padding-bottom: 0;
+  color: white;
+}
+.c-bar-graph__data {
+  height: 30px;
+  line-height: 30px;
+  font-size: .9rem;
+  display: block;
+  margin: 0 10%;
+  background: salmon linear-gradient(purple 10px, purple 100%);
+  position: relative;
+  transition: height 1s ease-out;
+}
+.c-bar-graph__helper {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  clear: both;
+  display: block;
+}
+@media (min-width: 45em) {
+  .c-bar-graph__helper {
+    display: none;
+  }
+}
+
+.score h1 {
+    padding:5px 10px;
+    width:100%;
+    text-align:center;
+
+}
+.score small {
+    vertical-align:center;
+    text-align:center;
+}
+table caption {
+	padding: .5em 0;
+}
+
+@media screen and (max-width: 767px) {
+  table caption {
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+
+.header {
+    height:70px;
+    background: #004853;
+    color:#fff;
+}
+.header .title {
+    /**line-height:60px;
+    font-size:30px;**/
+    padding:5px 0px;
+    color:#fff;
+}
+
+.btn-outline-primary, .btn-primary:hover {
+    color: teal;
+    background-color: transparent;
+    background-image: none;
+    border-color: teal;
+}
+.btn-primary {
+    background-color: teal;
+    border-color:teal;
+}
+.btn-outline-primary:hover {
+    background-color: teal;
+    border-color:teal;
+}
+.btn-purple {
+    background-color: transparent;
+    border-color:purple;
+    color:purple
+}
+.btn-purple:hover {
+    background-color: purple;
+    border-color:purple;
+}
+
+.bigbtn {
+    height: 80px;
+    width:100%;
+    margin:20px 0px;
+    font-size:30px;
+    border-color:purple;
+    color:purple;
+}
+.purple {
+    color:purple;
+}
+.teal {
+    color:teal;
+}
+.bigbtn:hover {
+    background-color: purple;
+    border-color:purple;
+}
+.container {
+    margin-top:20px;
+}
+
+.jumbotron {
+    background:#fff;
+}
+.searchbox, .searchbox:hover, .searchbox:active {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    box-shadow:none;
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: rgba(186,85,211, 0.1);
+
+}
+.form-check {
+    display:inline-block;
+}
+.categories {
+    display:none;
+}
+
+.score h1 {
+    font-size: 40px;
+    background: purple;
+    border-radius: 80px;
+    color: #fff;
+    height: 100px;
+    width: 100px;
+    line-height: 90px;
+    text-align: center;
+}
+.score small {
+    color:#212121;
+    background:#fff;
+}
+.box {
+    background:#ffffff;
+    padding:40px;
+    box-sizing: border-box;
+    box-shadow:0px 10px 40px 0px rgba(1, 1, 1, 0.1)
+}
+.student-name {
+    font-size:26px;
+    display:inline-block;
+}
+
+.nav-tabs .nav-link {
+    border:none;
+}
+.nav-item {
+    border-bottom:none;
+    color: #212121;
+}
+
+.nav-item.active {
+    border-bottom:2px solid purple;
+    color:purple;
+}
+.student-name-profile {
+    margin-top:25px;
+}
+.table thead th {
+    border-top:none;
+}

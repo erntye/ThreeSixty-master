@@ -1,0 +1,123 @@
+{% extends  'header.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="row" style="margin-top:20px;"></div>
+        <div class="row box">
+            <div class="col-md-2">
+                {% if student.image_url %}
+                <img src="{{student.image_url}}"  style="height:100px;"/>
+                {% else %}
+                <img src="{% static  'user.png' %}"  style="height:100px;"/>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <h1 class="student-name-profile">{{student.name}}</h1>
+                <small>Number of reviews per project</small><br>
+                {% for item in progress %}
+                <small>Project {{forloop.counter}} ({{item}})  </small>
+                {% endfor %}
+            </div>
+            <div class="col-md-2 col-xs-12">
+                <div class="row score" id="score1">
+                     <h1>{{overall_score}}</h1>
+                    <small class="text-center">You are in the 70th percentile</small>
+                </div>
+            </div>
+            <div class="col-md-2 col-xs-12">
+                <div class="row score" id="score2">
+                     <h1>{{self_score}}</h1>
+                    <small class="text-center">Your self-evaluation score</small>
+                </div>
+
+            </div>
+        </div>
+        <br clear="all">
+        <ul class="nav nav-tabs box" id="myTab" role="tablist" style="margin:0px -15px;padding:20px;">
+          <li class="nav-item">
+            <a class="nav-link active" id="feed-tab" data-toggle="tab" href="#feed" role="tab" aria-controls="feed" aria-selected="true">Feed</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="scores-tab" data-toggle="tab" href="#scores" role="tab" aria-controls="scores" aria-selected="false">Scores</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent" style="margin:0px -15px;">
+          <div class="tab-pane fade show active" id="feed" role="tabpanel" aria-labelledby="feed-tab">
+              <div class="row comment-section">
+                <ul id="comments-list" class="comments-list" style="width:100%;">
+                    {% for comment in comments %}
+                    <li class="box" style="width:100%;">
+                        <div class="comment-main-level">
+                            <div class="comment-box">
+                                <div class="comment-content">
+                                   {{comment.text}}
+                                </div>
+                                <div class="comment-head">
+                                    <span class="comment-span">Project {{comment.project.name}} </span>
+                                    <span class="comment-span">{{comment.category.name}} </span>
+                                    <span class="comment-span" style="background:purple;">{{comment.student_from.name}} </span>
+                                    <span style="padding: 3px 5px;"> {{comment.time_in}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% empty %}
+                    <p>No comments yet</p>
+                    {% endfor %}
+                </ul>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="scores" role="tabpanel" aria-labelledby="scores-tab">
+            <div class="row" style="margin-top:20px;">
+                {% for category in categories %}
+                <div class="col-md-6" style="margin-bottom:10px;">
+                    <div class="box">
+                        <div class="row" style="padding:0px 0px 20px 0px;">
+                            <h4>{{category.name}}</h4>
+                        </div>
+                        <table class="c-bar-graph">
+                            <tfoot class="c-bar-graph__footer">
+                                <tr>
+                                <td>Project 1</td>
+                                <td>Project 2</td>
+                                <td>Project 3</td>
+                                <td>Project 4</td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    {% for item in category.data %}
+                                    <td class="c-bar-graph__cell" data-graph="{{item}}">
+                                        <span class="c-bar-graph__data">{{item}}</span>
+                                    </td>
+                                    {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+               {% endfor %}
+             </div>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+        $('td').each(function() {
+          var max = 100;
+          var cell = $(this).data('graph');
+          var cellHeight = (cell / max) * 100;
+          $('span', this).height(cellHeight + '%');
+        });
+
+        $('#myTab a').on('click', function (e) {
+          e.preventDefault()
+          $(this).tab('show')
+        })
+        $('#myTab a[href="#scores"]').tab('show')
+        $('#myTab a[href="#feed"]').tab('show')
+
+    </script>
+    </div>
+</body>
+</html>
+{% endblock %}

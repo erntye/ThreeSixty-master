@@ -1,0 +1,59 @@
+{% extends  'header.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row box">
+        <div class="col-md-10">
+            <h2>IEOR 171 | <span class="purple">Project {{project}} Team</span></h2>
+        </div>
+        <div class="col-md-2">
+            <a href="/profile?student={{student_id}}">
+                <img src="{{student_image_url}}" style="height:60px;"/><br>
+                <small>{{student_name}}</small>
+            </a>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:60px;">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 box">
+            {% for student in students%}
+            {% if student.evaluated %}
+            <div class="row ">
+                <a href="#" style="width:100%;">
+                    <div class="col-12">
+                        {% if student.image_url %}
+                        <img src="{{student.image_url}}"  style="height:100px;"/>
+                        {% else %}
+                        <img src="{% static  'user.png' %}"  style="height:100px;"/>
+                        {% endif %}
+                        <div class="student-name">{{student.name}}</div>
+                        <img src="{% static 'tick.png' %}" style="float:right;margin-top:30px;"/>
+                    </div>
+                </a>
+            </div>
+            {% else %}
+                <div class="row">
+                <a href="/evaluation?student={{student.id}}&project={{project}}" style="width:100%;">
+                    <div class="col-md-12">
+                         {% if student.image_url %}
+                        <img src="{{student.image_url}}"  style="height:100px;"/>
+                        {% else %}
+                        <img src="{% static  'user.png' %}"  style="height:100px;"/>
+                        {% endif %}
+                        <div class="student-name">{{student.name}}</div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+
+            <hr>
+            {% endfor %}
+        </div>
+        <div class="col-md-3"></div>
+
+    </div>
+</div>
+
+{% endblock %}

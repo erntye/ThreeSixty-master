@@ -1,0 +1,37 @@
+{% extends  'header.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row box">
+        <div class="col-md-10">
+            <h2>IEOR 171 | <span class="purple">Choose a Project</span></h2>
+        </div>
+        <div class="col-md-2 justify-content-center">
+            <a href="/profile?student={{student_id}}">
+                <img src="{{student_image_url}}" style="height:60px;"/><br>
+                <small>{{student_name}}</small>
+            </a>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:60px;">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 box">
+            <button class="btn bigbtn btn-outline-primary btn-purple" onclick="handleClick(this)" id="1">Project 1</button>
+            <button class="btn bigbtn btn-outline-primary btn-purple" onclick="handleClick(this)" id="2">Project 2</button>
+            <button class="btn bigbtn btn-outline-primary btn-purple" onclick="handleClick(this)" id="3">Project 3</button>
+            <button class="btn bigbtn btn-outline-primary btn-purple" onclick="handleClick(this)" id="4">Project 4</button>
+        </div>
+        <div class="col-md-3"></div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function handleClick(elem) {
+        window.location.href="/team?project="+elem.id;
+    }
+</script>
+
+{% endblock %}
